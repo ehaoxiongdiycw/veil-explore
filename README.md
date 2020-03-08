@@ -18,6 +18,13 @@ $ python veil-explore.py http://site_behind_cdn_or_waf/
 
 - all saas waf (theoretically)
 
-## Supported Cyberspace search engine
+## Supported Cyberspace Search Engine
 
 - FOFA
+
+## Referer
+
+- https://blog.christophetd.fr/bypassing-cloudflare-using-internet-wide-scan-data/
+- https://dualuse.io/blog/curryfinger/
+- https://github.com/christophetd/CloudFlair
+- https://github.com/tbiehn/CURRYFINGER
