@@ -14,3 +14,10 @@ $ python veil-explore.py http://site_behind_cdn_or_waf/
 
 - cloudflare
 
+## Supported WAF
+
+- all saas waf (theoretically)
+
+## Supported Cyberspace search engine
+
+- FOFA
