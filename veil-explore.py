@@ -5,12 +5,13 @@ import pyfofa
 import warnings
 import requests
 import dns.resolver
+from tld import get_fld
 from difflib import SequenceMatcher
 from urllib.parse import urljoin, quote, urlparse
 warnings.filterwarnings("ignore")
 
-fofa_email = '' or os.environ['FOFA_EMAIL']
-fofa_key = '' or os.environ['FOFA_KEY']
+fofa_email = '' or os.environ.get('FOFA_EMAIL')
+fofa_key = '' or os.environ.get('FOFA_KEY')
 assert all([fofa_email, fofa_key]) == True, '[FATAL] Plsease set FOFA_EMAIL and FOFA_KEY'
 headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"}
 request_timeout = 10
@@ -26,10 +27,11 @@ def find_cname(domain):
 
 def uses_cloudflare(cname):
     try:
-        answers = dns.resolver.query(cname, 'NS')
+        fld = get_fld(cname.strip('.'), fix_protocol=True)
+        answers = dns.resolver.query(fld, 'NS')
     except dns.resolver.NoAnswer:
         ### debug
-        print('[DNS] {} can not find NS record'.format(cname))
+        print('[DNS] {} can not find NS record'.format(fld))
     else:
         cdn_nss = json.load(open('cdn-ns.json'))
         for answer in answers:
