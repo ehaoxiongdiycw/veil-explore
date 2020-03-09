@@ -183,7 +183,10 @@ def main(input_url):
     title, host_name = website_feature_extract(origin_resp)
     internet_same_sites = search_fofa_with_same_feature(title, host_name, a_record)
     same_sites = page_check(internet_same_sites, title, host_name, origin_resp)
-    print('[SITES] behind CND or WAF(saas) as follow:\n{}'.format('\n'.join(same_sites)))
+    if same_sites:
+        print('[SITES] behind CND or WAF(saas) as follow:\n{}'.format('\n'.join(same_sites)))
+    else:
+        print('[SITES] no site found.')
 
 if __name__ == "__main__":
     import argparse
