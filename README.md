@@ -19,7 +19,9 @@ $ python veil-explore.py http://site_behind_cdn_or_waf/
 
 ## Supported CDN
 
-- cloudflare
+- Cloudflare
+- 阿里云
+- 腾讯云
 
 ## Supported WAF
 

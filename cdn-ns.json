@@ -1,3 +1,5 @@
 {
-    "cloudflare":  "ns.cloudflare.com"
+    "Cloudflare":  "ns.cloudflare.com",
+    "阿里云": "aliyun.com",
+    "腾讯云": "dnspod.net"
 }
