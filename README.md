@@ -6,7 +6,7 @@ veil-explore, find ip behind CDN or WAF(saas)
 ```
 $ python -V
 Python 3.7.1
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## USAGE
