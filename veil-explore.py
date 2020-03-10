@@ -19,24 +19,24 @@ request_timeout = 10
 def find_cname(domain):
     try:
         cname = dns.resolver.query(domain).canonical_name.to_text()
-    except dns.resolver.NoAnswer:
+    except:
         ### fatal
         print('[DNS] {} can not find CNAME record'.format(domain))
         exit(1)
     return cname
 
-def uses_cloudflare(cname):
+def use_cdn(cname):
     try:
-        fld = get_fld(cname.strip('.'), fix_protocol=True)
+        fld = get_fld(cname.rstrip('.'), fix_protocol=True)
         answers = dns.resolver.query(fld, 'NS')
-    except dns.resolver.NoAnswer:
+    except:
         ### debug
         print('[DNS] {} can not find NS record'.format(fld))
     else:
         cdn_nss = json.load(open('cdn-ns.json'))
         for answer in answers:
-            for cdn_vendor, cdn_ns in cdn_nss.items():
-                if cdn_ns in answer.to_text():
+            for cdn_vendor, cdn_ns_list in cdn_nss.items():
+                if get_fld(answer.to_text().rstrip('.'), fix_protocol=True) in cdn_ns_list:
                     ### debug
                     print('[CDN] Vendor: {}, NS: {}'.format(cdn_vendor, answer.to_text()))
                     return True
@@ -45,7 +45,7 @@ def uses_cloudflare(cname):
 def get_a_record_answer(cname):
     try:
         answers = dns.resolver.query(cname, 'A')
-    except dns.resolver.NoAnswer:
+    except:
         ### fatal
         print('[DNS] {} can not find A record'.format(cname))
         exit(1)
@@ -59,7 +59,7 @@ def website_behind_cdn(url):
     else:
         host_name = _url.netloc
     cname = find_cname(host_name)
-    cdn_cloudflare = uses_cloudflare(cname)
+    cdn_cloudflare = use_cdn(cname)
     a_record_answer = get_a_record_answer(cname)
     return any([cdn_cloudflare]), a_record_answer
 

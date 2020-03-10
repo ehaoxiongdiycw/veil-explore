@@ -17,15 +17,10 @@ $ export FOFA_KEY="xxxxxxxxxxxxxxxx"
 $ python veil-explore.py http://site_behind_cdn_or_waf/
 ```
 
-## Supported CDN
+## Supported WAF & CDN
 
-- Cloudflare
-- 阿里云
-- 腾讯云
-
-## Supported WAF
-
-- all saas waf (theoretically)
+- All saas WAF in theoretically.
+- Cloudflare, Akamai, Amazon-Cloudfront, Microsoft-Azure and so on.
 
 ## Supported Cyberspace Search Engine
 

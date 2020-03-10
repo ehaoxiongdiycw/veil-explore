@@ -1,5 +1,166 @@
 {
-    "Cloudflare":  "ns.cloudflare.com",
-    "阿里云": "aliyun.com",
-    "腾讯云": "dnspod.net"
+  "Akamai": [
+    "akamaiedge.net",
+    "akagtm.org",
+    "akam.net",
+    "akamaitech.net",
+    "akadns.net"
+  ],
+  "新流万联": [
+    "ngaagslb.cn"
+  ],
+  "Cloudflare": [
+    "cloudflare.net",
+    "cloudflare.com"
+  ],
+  "搜狐云台": [
+    "sohu.com"
+  ],
+  "StackPath": [
+    "stackpathdns.net"
+  ],
+  "腾讯云": [
+    "dnspod.net",
+    "dnspood.net",
+    "qq.com"
+  ],
+  "网易云": [
+    "166.com",
+    "nease.net"
+  ],
+  "360云加速": [
+    "360anyu.com"
+  ],
+  "Fastly": [
+    "fastly.net"
+  ],
+  "Myracloud": [
+    "myradns.net"
+  ],
+  "EdgeCast": [
+    "verizondigitalmedia.com"
+  ],
+  "加速乐": [
+    "jiasule.net"
+  ],
+  "上海云盾": [
+    "hwws.cn"
+  ],
+  "云帆加速": [
+    "yfcdn.net"
+  ],
+  "京东云": [
+    "jdgslb.com",
+    "jd.com",
+    "jcloud-cdn.com"
+  ],
+  "BelugaCDN": [
+    "belugacdn.com"
+  ],
+  "蓝盾": [
+    "wsssec.com"
+  ],
+  "中国电信": [
+    "eeagd.edu.cn"
+  ],
+  "百度云加速": [
+    "baidu.com",
+    "yunjiasu-cdn.net",
+    "yunjiasu.com"
+  ],
+  "新浪云": [
+    "sina.com",
+    "sinacloud.com",
+    "sina.com.cn",
+    "sinaedge.com"
+  ],
+  "Amazon-Cloudfront": [
+    "awsdns-60.net",
+    "awsdns-40.co.uk",
+    "awsdns-32.net",
+    "awsdns-13.com",
+    "awsdns-21.com",
+    "awsdns-36.co.uk",
+    "awsdns-47.org",
+    "awsdns-32.com",
+    "awsdns-16.net",
+    "awsdns-25.net",
+    "awsdns-46.com",
+    "awsdns-49.net",
+    "awsdns-50.co.uk",
+    "awsdns-41.net",
+    "awsdns-58.org",
+    "awsdns-43.co.uk",
+    "awsdns-13.co.uk",
+    "awsdns-28.co.uk",
+    "awsdns-38.com",
+    "awsdns-35.com",
+    "awsdns-10.org",
+    "awsdns-32.org",
+    "awsdns-29.org"
+  ],
+  "灵动网络": [
+    "wswebcdn.org",
+    "wswebcdn.info",
+    "cdn30.org"
+  ],
+  "蓝汛": [
+    "chinacache.net",
+    "ccgslb.com.cn",
+    "lxsvc.cn",
+    "chinacache.com"
+  ],
+  "Limelight": [
+    "lldns.net"
+  ],
+  "阿里云": [
+    "alibabadns.com",
+    "aliyun.com",
+    "alidns.com",
+    "hichina.com"
+  ],
+  "华为云": [
+    "dnsdun.com",
+    "hwclouds-dns.net",
+    "dnsdun.net",
+    "hwclouds-dns.com"
+  ],
+  "Microsoft-Azure": [
+    "l-msedge.net"
+  ],
+  "金山云": [
+    "ksycdn.cn",
+    "ksyuncdn.com"
+  ],
+  "CacheFly": [
+    "cachenetworks.com"
+  ],
+  "Incapsula": [
+    "incapdns.net"
+  ],
+  "网宿": [
+    "wscdns.info",
+    "wscdns.org",
+    "mwcloudcdn.info",
+    "wscloudcdn.org"
+  ],
+  "帝联": [
+    "dlgslb.cn"
+  ],
+  "Clever-Cloud": [
+    "gandi.net"
+  ],
+  "白山云科技": [
+    "dolfindns.net",
+    "solocdn.cn",
+    "baishancloud.org",
+    "bs-dolfin.net",
+    "bsclink.cn"
+  ],
+  "美橙": [
+    "ezdnscenter.com"
+  ],
+  "Airee": [
+    "airee.ru"
+  ]
 }
