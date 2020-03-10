@@ -89,7 +89,7 @@ def website_behind_waf(url, origin_page):
         return flag
 
 def website_feature_extract(resp):
-    title = get_website_title(resp.text)
+    title = get_website_title(resp.content.decode(resp.apparent_encoding))
     cert_info = get_website_cert(resp.request.url)
     return title, cert_info
 
@@ -163,7 +163,7 @@ def page_check(ip_sites, title, host_name, origin_resp):
                 ### debug
                 print('[request-exception] {}, site: {}'.format(e, site))
                 continue
-            site_title = get_website_title(resp.text)
+            site_title =  get_website_title(resp.content.decode(resp.apparent_encoding))
             ratio = SequenceMatcher(None, resp.text, origin_resp.text).quick_ratio()
             if site_title == title and ratio > 0.9:
                 same_sites.append(site)
