@@ -146,6 +146,11 @@ def search_fofa_with_same_feature(title, cert_host, domain_a_records):
             site = '{}://{}'.format('http', host)
         else:
             site = host
+        # 针对FOFA端口去重
+        if site.count(':') == 1 and site.startswith('https://'):
+            site += ':443'
+        elif site.count(':') == 1 and site.startswith('http://'):
+            site += ':80'
         sites.add(site)
         clean_result[ip] = sites
     ### info
