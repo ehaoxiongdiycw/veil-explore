@@ -1,11 +1,13 @@
 import os
 import re
 import json
+import random
 import pyfofa
 import warnings
 import requests
 import dns.resolver
 from tld import get_fld
+from async_http_client import AsnycGrab
 from difflib import SequenceMatcher
 from urllib.parse import urljoin, quote, urlparse
 warnings.filterwarnings("ignore")
@@ -96,8 +98,8 @@ def website_feature_extract(resp):
 def get_website_title(resp_text):
     match = re.search('<title>(.*?)</title>', resp_text, re.S|re.I)
     if match and len(match.groups()) == 1:
-        title = match.group(1).strip()
-        print('[TITLE] {}'.format(title[:80]))
+        title = match.group(1).strip()[:80]
+        print('[TITLE] {}'.format(title))
     else:
         title = None
     return title
@@ -105,6 +107,13 @@ def get_website_title(resp_text):
 def get_website_cert(url):
     _url = urlparse(url)
     if _url.scheme == 'https':
+        if _url.port:
+            host_name = _url.netloc.split(':')[0]
+        else:
+            host_name = _url.netloc
+        cert_info = host_name
+        print('[CERT] {}'.format(cert_info))
+    elif _url.scheme == 'http':
         if _url.port:
             host_name = _url.netloc.split(':')[0]
         else:
@@ -174,23 +183,35 @@ def page_check(ip_sites, title, host_name, origin_resp):
                 same_sites.append(site)
     return same_sites
 
+def async_page_check(ip_sites, title, host_name, origin_resp, max_threads):
+    sites = []
+    for ip, _sites in ip_sites.items():
+        sites.extend(_sites)
+    random.shuffle(sites)
+    async_client = AsnycGrab(
+        url_list=sites, 
+        max_threads=max_threads, 
+        origin_title=title, 
+        origin_page=origin_resp.content.decode(origin_resp.apparent_encoding), 
+        host_name=host_name
+    )
+    async_client.eventloop()
+    return async_client.results
 
-def main(input_url, ignore_cdn_waf):
-    # input_url = "https://hyvanpuoleiset.fi"       # cdn
-    # input_url = "http://www.jjwater.com/?add=xs"        # waf
+def main(input_url, ignore_cdn_waf, max_threads):
     _url = urlparse(input_url)
     url = '{}://{}/'.format(_url.scheme, _url.netloc)
     behind_cdn, a_record = website_behind_cdn(url)
     origin_resp = website_alive_test(url)
     behind_waf = website_behind_waf(url, origin_resp.text)
-    # if ignore_cdn_waf == False and not any([behind_cdn, behind_waf]):
     if not (ignore_cdn_waf or any([behind_cdn, behind_waf])):
         ### info
         print('CDN and WAF not detected. Exit')
         exit(0)
     title, host_name = website_feature_extract(origin_resp)
     internet_same_sites = search_fofa_with_same_feature(title, host_name, a_record)
-    same_sites = page_check(internet_same_sites, title, host_name, origin_resp)
+    # same_sites = page_check(internet_same_sites, title, host_name, origin_resp)
+    same_sites = async_page_check(internet_same_sites, title, host_name, origin_resp, max_threads)
     if same_sites:
         print('[SITES] behind CND or WAF(saas) as follow:\n{}'.format('\n'.join(same_sites)))
     else:
@@ -201,5 +222,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='veil-explore, find ip behind CDN or WAF(saas)')
     parser.add_argument("url", help="url for CDN or WAF site")
     parser.add_argument('--force', action='store_true', help="ignore CDN and WAF detect result to find site")
+    parser.add_argument("--max-threads", help="max threads for async http client", type=int, default=10, choices=range(1, 50))
     args = parser.parse_args()
-    main(input_url=args.url, ignore_cdn_waf=args.force)
+    main(input_url=args.url, max_threads=args.max_threads, ignore_cdn_waf=args.force)
