@@ -170,7 +170,7 @@ def page_check(ip_sites, title, host_name, origin_resp):
     return same_sites
 
 
-def main(input_url):
+def main(input_url, ignore_cdn_waf):
     # input_url = "https://hyvanpuoleiset.fi"       # cdn
     # input_url = "http://www.jjwater.com/?add=xs"        # waf
     _url = urlparse(input_url)
@@ -178,7 +178,8 @@ def main(input_url):
     behind_cdn, a_record = website_behind_cdn(url)
     origin_resp = website_alive_test(url)
     behind_waf = website_behind_waf(url, origin_resp.text)
-    if not any([behind_cdn, behind_waf]):
+    # if ignore_cdn_waf == False and not any([behind_cdn, behind_waf]):
+    if not (ignore_cdn_waf or any([behind_cdn, behind_waf])):
         ### info
         print('CDN and WAF not detected. Exit')
         exit(0)
@@ -194,5 +195,6 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='veil-explore, find ip behind CDN or WAF(saas)')
     parser.add_argument("url", help="url for CDN or WAF site")
+    parser.add_argument('--force', action='store_true', help="ignore CDN and WAF detect result to find site")
     args = parser.parse_args()
-    main(args.url)
+    main(input_url=args.url, ignore_cdn_waf=args.force)
