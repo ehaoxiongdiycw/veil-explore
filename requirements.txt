@@ -1,8 +1,13 @@
+aiohttp==3.6.2
+async-timeout==3.0.1
+attrs==19.3.0
 certifi==2019.11.28
 chardet==3.0.4
 dnspython==1.16.0
 idna==2.9
+multidict==4.7.5
 pyfofa==1.0.0
 requests==2.23.0
 tld==0.11.10
 urllib3==1.25.8
+yarl==1.4.2

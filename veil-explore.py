@@ -222,6 +222,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='veil-explore, find ip behind CDN or WAF(saas)')
     parser.add_argument("url", help="url for CDN or WAF site")
     parser.add_argument('--force', action='store_true', help="ignore CDN and WAF detect result to find site")
-    parser.add_argument("--max-threads", help="max threads for async http client", type=int, default=10, choices=range(1, 50))
+    parser.add_argument("--max-threads", help="max threads for async http client, default: 10", type=int, default=10)
     args = parser.parse_args()
     main(input_url=args.url, max_threads=args.max_threads, ignore_cdn_waf=args.force)
