@@ -15,6 +15,19 @@ $ pip install -r requirements.txt
 $ export FOFA_EMAIL="xxx@xx.com"
 $ export FOFA_KEY="xxxxxxxxxxxxxxxx"
 $ python veil-explore.py http://site_behind_cdn_or_waf/
+$ python veil-explore.py -h
+usage: veil-explore.py [-h] [--force] [--max-threads MAX_THREADS] url
+
+veil-explore, find ip behind CDN or WAF(saas)
+
+positional arguments:
+  url                   url for CDN or WAF site
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --force               ignore CDN and WAF detect result to find site
+  --max-threads MAX_THREADS
+                        max threads for async http client, default: 10
 ```
 
 ## Supported WAF & CDN
