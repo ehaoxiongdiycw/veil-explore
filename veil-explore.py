@@ -137,7 +137,11 @@ def search_fofa_with_same_feature(title, cert_host, domain_a_records):
         exit(1)
     search = pyfofa.FofaAPI(fofa_email, fofa_key)
     result = search.get_data(query, 1, "host,ip,domain,protocol")
-    size = result.get('size')
+    if not all([result.get('size'), result.get('results')]):
+        print('[FOFA] API Result:\n{}'.format(result))
+        print('Please Check Your FOFA member plan.')
+        exit(1)
+    size = result['size']
     ### 返回数量太大可能存在误报
     if size > 100:
         print('[FOFA] size: {}, check manualy, query: {}'.format(size, query))
