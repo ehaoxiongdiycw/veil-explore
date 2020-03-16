@@ -5,6 +5,7 @@ import random
 import pyfofa
 import warnings
 import requests
+import traceback
 import dns.resolver
 from tld import get_fld
 from async_http_client import AsnycGrab
@@ -135,7 +136,12 @@ def search_fofa_with_same_feature(title, cert_host, domain_a_records):
         ### fatal
         print('[FATAL] can not find TITLE and CERT info.')
         exit(1)
-    search = pyfofa.FofaAPI(fofa_email, fofa_key)
+    try:
+        search = pyfofa.FofaAPI(fofa_email, fofa_key)
+    except Exception as e:
+        print('[FOFA] API Exception: open https://fofa.so in browser for connection check')
+        # traceback.print_exc()
+        exit(1)
     result = search.get_data(query, 1, "host,ip,domain,protocol")
     if not all([result.get('size'), result.get('results')]):
         print('[FOFA] API Result:\n{}'.format(result))
