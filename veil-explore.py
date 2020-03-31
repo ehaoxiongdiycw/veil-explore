@@ -77,12 +77,13 @@ def website_alive_test(url):
 
 def website_behind_waf(url, origin_page):
     flag = False
+    waf_ratio = 0.5
     waf_vector = "AND 1=1 UNION ALL SELECT 1,NULL,'<script>alert(\"XSS\")</script>',table_name FROM information_schema.tables WHERE 2>1--/**/; EXEC xp_cmdshell('cat ../../../etc/passwd')#"
     waf_url = urljoin(url, '?waf_test=666 {}'.format(waf_vector))
     try:
         resp = requests.get(waf_url, headers=headers, timeout=request_timeout, verify=False)
         ratio = SequenceMatcher(None, resp.text, origin_page).quick_ratio()
-        flag = ratio < 0.5
+        flag = ratio < waf_ratio
     except:
         flag = True
     finally:

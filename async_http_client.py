@@ -18,6 +18,7 @@ class AsnycGrab(object):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
             'Host': host_name
         }
+        self.ratio_bound = 0.9
 
     def __parse_results(self, url, html):
         try:
@@ -31,7 +32,7 @@ class AsnycGrab(object):
             ratio = SequenceMatcher(None, resp_text, self.origin_page).quick_ratio()
         except Exception as e:
             raise e
-        if title == self.origin_title and ratio > 0.9:
+        if title == self.origin_title and ratio > self.ratio_bound:
             self.results.append(str(url))
 
     async def get_body(self, url):
