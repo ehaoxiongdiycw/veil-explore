@@ -92,7 +92,7 @@ def website_behind_waf(url, origin_page):
         return flag
 
 def website_feature_extract(resp):
-    title = get_website_title(resp.content.decode(resp.apparent_encoding))
+    title = get_website_title(resp.content.decode(resp.apparent_encoding, errors='ignore'))
     cert_info = get_website_cert(resp.request.url)
     return title, cert_info
 
@@ -202,7 +202,7 @@ def async_page_check(ip_sites, title, host_name, origin_resp, max_threads):
         url_list=sites, 
         max_threads=max_threads, 
         origin_title=title, 
-        origin_page=origin_resp.content.decode(origin_resp.apparent_encoding), 
+        origin_page=origin_resp.content.decode(origin_resp.apparent_encoding, errors='ignore'), 
         host_name=host_name
     )
     async_client.eventloop()
