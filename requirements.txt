@@ -9,5 +9,5 @@ multidict==4.7.5
 pyfofa==1.0.0
 requests==2.23.0
 tld==0.11.10
-urllib3==1.25.8
+urllib3==1.26.5
 yarl==1.4.2
